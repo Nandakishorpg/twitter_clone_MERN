@@ -1,11 +1,24 @@
-import React from "react";
+import { React, useState } from "react";
 import logo from "../../assets/images/twitter.png";
 import { AiOutlineClose } from "react-icons/ai";
 import { TextField, Button } from "@mui/material";
 import applelogo from "../../assets/images/apple-logo.png";
 import googlelogo from "../../assets/images/google-logo.png";
+import axios from "axios";
 
 export default function Login() {
+  const [userName, setUserName] = useState({user:""});
+  console.log("username>>>>>", userName);
+
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post("http://localhost:2000/login", userName);
+
+      console.log(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <div className="bg-stone-400 h-screen flex   justify-center items-center ">
       <div className="bg-white xl:rounded-lg  xl:w-5/12 xl:h-5/6 w-full h-full xl:justify-center items-center   flex flex-col p-2     ">
@@ -23,9 +36,6 @@ export default function Login() {
               <img className="h-6 xl:h-5 " src={googlelogo} alt="" />
               Sign in with Google
             </button>
-            {/* <Button className="w-full" variant="outlined">
-              Delete
-            </Button> */}
           </div>
           <div className="flex justify-center">
             <button className="border rounded-xl shadow-sm p-1 w-full justify-center items-center gap-4 align-middle   flex  font-bold py-2 ">
@@ -39,10 +49,14 @@ export default function Login() {
               label="Phone,email or username"
               variant="outlined"
               className="shadow-sm  p-1 w-full   py-2"
+              onChange={(event) => setUserName({user:event.target.value})}
             />
           </div>
           <div className="flex justify-center">
-            <button className="border rounded-xl bg-black text-white shadow-sm p-1 w-full  font-bold py-2 ">
+            <button
+              onClick={handleLogin}
+              className="border rounded-xl bg-black text-white shadow-sm p-1 w-full  font-bold py-2 "
+            >
               Next
             </button>
           </div>

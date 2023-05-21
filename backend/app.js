@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express()
+const loginRouter=require('./src/routes/loginRouter')
 
 
 
@@ -21,7 +22,7 @@ app.use((req, res, next) => {
   
   app.use(express.urlencoded({ extended: true }))
 
-//   app.use('/register',registerRouter)
+  app.use('/login',loginRouter)
 //   app.use('/login',loginRouter)
 //   app.use('/profile',profileViewRouter)
 //   app.use('/docView',doctorViewRouter)
