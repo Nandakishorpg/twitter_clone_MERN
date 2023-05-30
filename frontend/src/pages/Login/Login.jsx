@@ -15,11 +15,15 @@ export default function Login() {
   const handleLogin = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:2000/login",
+        "http://localhost:4000/login",
         userName
       );
 
-      console.log(response.data);
+      if (response.data.data.length > 0) {
+        console.log("hei user>>>", response.data.data[0]._id);
+      } else {
+        console.log("No user Found");
+      }
     } catch (err) {
       console.log(err);
     }
